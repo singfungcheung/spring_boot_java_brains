@@ -1,5 +1,6 @@
 package io.javabrains.springbootstarter.topic;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,13 +10,11 @@ import java.util.List;
 @RestController
 public class TopicController {
 
+    @Autowired // Marks this as something that needs dependency injection.
+    private TopicService topicService;
     @RequestMapping("/topics")
     public List<Topic> getAllTopics() {
         // Converts to Json automatically and returns as HTTP response.
-        return Arrays.asList(
-                new Topic("spring", "Spring Framework", "Spring Framework Description"),
-                new Topic("java", "Core Java", "Core Java Description"),
-                new Topic("javascript", "JavaScript", "Javascript Description")
-        );
+        return topicService.getAllTopics();
     }
 }
